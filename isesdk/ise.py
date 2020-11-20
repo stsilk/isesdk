@@ -3,6 +3,7 @@ import subprocess
 import platform
 import requests
 import isesdk.internalUser as internalUser
+import isesdk.sgMapping as sgMapping
 
 #Class to handle cisco ISE session
 class ISE:
@@ -20,6 +21,7 @@ class ISE:
         self.clientSystem = platform.system()
         self.auth = requests.auth.HTTPBasicAuth(username, password)
         self.internalUser = internalUser.internalUser(self.ip, self.auth)
+        self.sgMapping = sgMapping.sgMapping(self.ip, self.auth)
 
     def verifyConnection(self):
         print("Pinging ISE Server...")
