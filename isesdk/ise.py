@@ -1,6 +1,8 @@
 import ipaddress
 import subprocess
 import platform
+import requests
+import isesdk.internalUser as internalUser
 
 #Class to handle cisco ISE session
 class ISE:
@@ -9,12 +11,15 @@ class ISE:
     __username = ''
     __password = ''
     __baseURL = ''
+    
 
     def __init__(self, username, password, ip):
         self.username = username
         self.password = password
         self.ip = ip
         self.clientSystem = platform.system()
+        self.auth = requests.auth.HTTPBasicAuth(username, password)
+        self.internalUser = internalUser.internalUser(self.ip, self.auth)
 
     def verifyConnection(self):
         print("Pinging ISE Server...")
